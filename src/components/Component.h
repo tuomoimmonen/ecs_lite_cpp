@@ -1,22 +1,20 @@
 #pragma once
 #include "entity/Entity.h"
 
-enum class ComponentType
-{
-    NONE = 0, TRANSFORM
-};
+class Entity;
 
 class Component
 {
 public:
-    Component(const ComponentType& new_type);
+    Component();
     virtual ~Component();
 
     virtual void update() = 0;
 
-    const ComponentType& get_type() const { return type; }
+    void set_owner(Entity* new_owner) { m_owner = new_owner; }
+
+protected:
 
 protected:
     Entity* m_owner = nullptr;
-    ComponentType type = ComponentType::NONE;
 };

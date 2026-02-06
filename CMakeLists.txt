@@ -7,6 +7,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(PROJECT_SOURCES
     src/main.cpp
+    src/components/Component.cpp
+    src/components/TransformComponent.cpp
+    src/entity/Entity.cpp
 
 )
 

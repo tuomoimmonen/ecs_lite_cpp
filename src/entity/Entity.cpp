@@ -25,7 +25,8 @@ void Entity::update()
 
 }
 
-void Entity::add_component(const Component* new_component)
+void Entity::add_component(Component* new_component)
 {
-
+    m_components.emplace_back(new_component);
+    m_components.back()->set_owner(this);
 }

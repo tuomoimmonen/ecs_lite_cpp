@@ -1,10 +1,11 @@
 #pragma once
 #include "Component.h"
+#include "entity/Entity.h"
 
 class TransformComponent : public Component
 {
 public:
-    TransformComponent(const ComponentType& new_type);
+    TransformComponent();
     ~TransformComponent();
 
     virtual void update() override;

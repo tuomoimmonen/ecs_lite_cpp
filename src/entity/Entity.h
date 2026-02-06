@@ -1,6 +1,9 @@
 #pragma once
 #include "components/Component.h"
+#include <memory>
 #include <vector>
+
+class Component;
 
 class Entity
 {
@@ -9,19 +12,18 @@ public:
     ~Entity();
 
     void update();
-    void add_component(const Component* new_component);
+    void add_component(Component* new_component);
 
     template<typename Type>
     Type* get_component()
     {
-        for (Component* c : m_components)
+        for (Component* component : m_components)
         {
-            if (c->get_type() == Type) {
-                Type* ptr = c->get_type();
-                return ptr;
+            Type* pointer = dynamic_cast<Type*>(component);
+            if (pointer) {
+                return pointer;
             }
-            else
-            {
+            else {
                 return nullptr;
             }
         }

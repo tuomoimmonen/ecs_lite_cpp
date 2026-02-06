@@ -1,8 +1,7 @@
 #include "TransformComponent.h"
 #include <iostream>
 
-TransformComponent::TransformComponent(const ComponentType& new_type)
-    :Component(new_type)
+TransformComponent::TransformComponent()
 {
     std::cout << "TransformComponent constructor called\n";
 }

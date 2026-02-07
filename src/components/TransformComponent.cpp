@@ -13,5 +13,8 @@ TransformComponent::~TransformComponent()
 
 void TransformComponent::update(Vec4& new_direction)
 {
+    x_position += new_direction.x_dir;
+    y_position += new_direction.y_dir;
 
+    std::cout << "Entity new position: " << x_position << ", " << y_position << "\n";
 }

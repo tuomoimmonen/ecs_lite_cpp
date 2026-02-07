@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <iostream>
 #include <limits>
+#include "components/TransformComponent.h"
+#include "components/SpriteComponent.h"
 
 Game::Game()
 {
@@ -21,6 +23,9 @@ Game::~Game()
 
 void Game::init()
 {
+    // CREATE ENTITIES
+    create_entities();
+
     m_state = GameState::RUNNING;
 }
 
@@ -47,9 +52,10 @@ void Game::update()
 void Game::draw_map()
 {
     // FILL BORDERS
-    draw_map_borders();
+    fill_map_borders();
 
-    // FILL PLAYER
+    // FILL ENTITY
+    fill_entity_map();
 
     // FILL ITEMS
 
@@ -63,7 +69,7 @@ void Game::draw_map()
 
 }
 
-void Game::draw_map_borders()
+void Game::fill_map_borders()
 {
     for (int y = 0; y < m_screen_height; y++)
     {
@@ -78,6 +84,32 @@ void Game::draw_map_borders()
 
             if (x == 0 || x == m_screen_width - 1) {
                 m_map[y][x] = '|';
+            }
+        }
+    }
+}
+
+void Game::fill_entity_map()
+{
+    std::cout << "fill_entity_map\n";
+    if (!m_entities.empty())
+    {
+        for (Entity* e : m_entities)
+        {
+            std::cout << "fill_entity_map2\n";
+
+            // get position + sprite
+            TransformComponent* t = e->get_component<TransformComponent>();
+            SpriteComponent* s = e->get_component<SpriteComponent>();
+            std::cout << "transform: " << t->get_x() << ", " << t->get_y() << "\n";
+            std::cout << "sprite: " << s->get_symbol() << "\n";
+            if (t && s) {
+                int x = t->get_x();
+                int y = t->get_y();
+
+                std::cout << "fill_entity_map: " << x << ", " << y << " | symbol: " << s->get_symbol() << "\n";
+                // fill the map
+                m_map[y][x] = s->get_symbol();
             }
         }
     }
@@ -146,4 +178,16 @@ void Game::update_entities(Vec4& new_direction)
         std::cout << "\nEntity vector is empty\n";
     }
 
+}
+
+void Game::create_entities()
+{
+    Entity* player = new Entity();
+    SpriteComponent* player_sprite = new SpriteComponent('@');
+    player->add_sprite_component(player_sprite);
+    TransformComponent* player_transform = new TransformComponent();
+    player->add_component(player_transform);
+    //player->add_component(player_sprite);
+
+    m_entities.emplace_back(player);
 }

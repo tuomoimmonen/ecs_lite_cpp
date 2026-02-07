@@ -1,7 +1,8 @@
 #include "SpriteComponent.h"
 #include <iostream>
 
-SpriteComponent::SpriteComponent()
+SpriteComponent::SpriteComponent(char new_symbol)
+    :symbol(new_symbol)
 {
     std::cout << "SpriteComponent constructor called\n";
 

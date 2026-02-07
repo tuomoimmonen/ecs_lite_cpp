@@ -1,9 +1,11 @@
 #pragma once
 #include "components/Component.h"
+#include "components/SpriteComponent.h"
 #include <memory>
 #include <vector>
 
 class Component;
+class SpriteComponent;
 
 class Entity
 {
@@ -13,6 +15,7 @@ public:
 
     void update(Vec4& new_direction);
     void add_component(Component* new_component);
+    void add_sprite_component(SpriteComponent* new_sprite);
 
     template<typename Type>
     Type* get_component()
@@ -22,9 +25,6 @@ public:
             Type* pointer = dynamic_cast<Type*>(component);
             if (pointer) {
                 return pointer;
-            }
-            else {
-                return nullptr;
             }
         }
         return nullptr;

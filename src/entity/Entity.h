@@ -11,7 +11,7 @@ public:
     Entity();
     ~Entity();
 
-    void update();
+    void update(Vec4& new_direction);
     void add_component(Component* new_component);
 
     template<typename Type>
@@ -27,6 +27,7 @@ public:
                 return nullptr;
             }
         }
+        return nullptr;
     }
 
 private:

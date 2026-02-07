@@ -8,7 +8,7 @@ public:
     TransformComponent();
     ~TransformComponent();
 
-    virtual void update() override;
+    virtual void update(Vec4& new_direction) override;
 
 private:
     int x_position = 0;

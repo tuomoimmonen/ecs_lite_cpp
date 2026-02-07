@@ -1,5 +1,12 @@
 #pragma once
-#include "entity/Entity.h"
+
+struct Vec4
+{
+    int x_dir = 0;
+    int y_dir = 0;
+    int x_width = 0;
+    int y_width = 0;
+};
 
 class Entity;
 
@@ -9,7 +16,7 @@ public:
     Component();
     virtual ~Component();
 
-    virtual void update() = 0;
+    virtual void update(Vec4& new_direction) = 0;
 
     void set_owner(Entity* new_owner) { m_owner = new_owner; }
 

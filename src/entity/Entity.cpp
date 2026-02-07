@@ -13,13 +13,13 @@ Entity::~Entity()
 
 }
 
-void Entity::update()
+void Entity::update(Vec4& new_direction)
 {
     if (!m_components.empty())
     {
         for (Component* c : m_components)
         {
-            c->update();
+            c->update(new_direction);
         }
     }
 

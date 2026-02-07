@@ -10,6 +10,9 @@ set(PROJECT_SOURCES
     src/components/Component.cpp
     src/components/TransformComponent.cpp
     src/entity/Entity.cpp
+    src/components/InputComponent.cpp
+    src/components/SpriteComponent.cpp
+    src/game/Game.cpp
 
 )
 

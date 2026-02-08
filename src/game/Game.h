@@ -27,6 +27,8 @@ private:
 
     void create_entities();
 
+    Entity* create_player_entity(int x_pos, int y_pos);
+    Entity* create_enemy_entity(int x_pos, int y_pos);
 private:
     int m_screen_width = 20;
     int m_screen_height = 10;

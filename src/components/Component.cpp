@@ -4,10 +4,10 @@
 
 Component::Component()
 {
-    std::cout << "Component base constructor called\n";
+    //std::cout << "Component base constructor called\n";
 }
 
 Component::~Component()
 {
-    std::cout << "Component base destructor called\n";
+    //std::cout << "Component base destructor called\n";
 }

@@ -8,8 +8,6 @@
 
 Game::Game()
 {
-    std::cout << "Game constructor called\n";
-
     init();
 }
 
@@ -20,7 +18,6 @@ Game::~Game()
     }
     m_entities.clear();
 
-    std::cout << "\nGame constructor called\n";
 }
 
 void Game::init()
@@ -42,7 +39,7 @@ void Game::update()
 
     // 3. UPDATE ENTITIES
     update_entities(directions);
-    
+
     // CLEAR SCREEN
     //system("cls");
 
@@ -93,23 +90,18 @@ void Game::fill_map_borders()
 
 void Game::fill_entity_map()
 {
-    std::cout << "fill_entity_map\n";
     if (!m_entities.empty())
     {
         for (Entity* e : m_entities)
         {
-            std::cout << "fill_entity_map2\n";
-
             // get position + sprite
             TransformComponent* t = e->get_component<TransformComponent>();
             SpriteComponent* s = e->get_component<SpriteComponent>();
-            std::cout << "transform: " << t->get_x() << ", " << t->get_y() << "\n";
-            std::cout << "sprite: " << s->get_symbol() << "\n";
+            
             if (t && s) {
                 int x = t->get_x();
                 int y = t->get_y();
 
-                std::cout << "fill_entity_map: " << x << ", " << y << " | symbol: " << s->get_symbol() << "\n";
                 // fill the map
                 m_map[y][x] = s->get_symbol();
             }
@@ -184,22 +176,35 @@ void Game::update_entities(Vec4& new_direction)
 
 void Game::create_entities()
 {
-    Entity* player = new Entity();
-    SpriteComponent* player_sprite = new SpriteComponent('@');
-    player->add_sprite_component(player_sprite);
-    TransformComponent* player_transform = new TransformComponent(m_screen_width / 2, m_screen_height / 2);
-    player->add_component(player_transform);
-    InputComponent* player_input = new InputComponent();
-    player->add_component(player_input);
-    
-    Entity* enemy = new Entity();
-    SpriteComponent* enemy_sprite = new SpriteComponent('E');
-    enemy->add_sprite_component(enemy_sprite);
-    TransformComponent* enemy_transform = new TransformComponent();
-    enemy->add_component(enemy_transform);
-    AIComponent* enemy_ai_component = new AIComponent();
-    enemy->add_component(enemy_ai_component);
+    m_entities.emplace_back(create_player_entity(10, 10));
+    m_entities.emplace_back(create_enemy_entity(10, 10));
+}
 
-    m_entities.emplace_back(player);
-    m_entities.emplace_back(enemy);
+Entity* Game::create_player_entity(int x_pos, int y_pos)
+{
+    Entity* entity = new Entity();
+    SpriteComponent* sprite = new SpriteComponent('@');
+    entity->add_sprite_component(sprite);
+    TransformComponent* transform = new TransformComponent(m_screen_width / 2, m_screen_height / 2);
+    entity->add_component(transform);
+    InputComponent* input = new InputComponent();
+    entity->add_component(input);
+
+    return entity;
+}
+
+Entity* Game::create_enemy_entity(int x_pos, int y_pos)
+{
+    int rand_x = (rand() % m_screen_width - 1) + 1;
+    int rand_y = (rand() % m_screen_height - 1) + 1;
+
+    Entity* entity = new Entity();
+    SpriteComponent* sprite = new SpriteComponent('E');
+    entity->add_sprite_component(sprite);
+    TransformComponent* transform = new TransformComponent(rand_x, rand_y);
+    entity->add_component(transform);
+    AIComponent* ai_component = new AIComponent();
+    entity->add_component(ai_component);
+
+    return entity;
 }

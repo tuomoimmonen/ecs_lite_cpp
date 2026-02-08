@@ -3,18 +3,16 @@
 
 InputComponent::InputComponent()
 {
-    std::cout << "InputComponent constructor called\n";
 }
 
 InputComponent::~InputComponent()
 {
-    std::cout << "InputComponent destructor called\n";
 }
 
 void InputComponent::update(Vec4& new_direction)
 {
     TransformComponent* transform = m_owner->get_component<TransformComponent>();
     if (transform) {
-        std::cout << "InputComponent found TransformComponent\n";
+        transform->add_position(new_direction.x_dir, new_direction.y_dir, new_direction.width, new_direction.height);
     }
 }

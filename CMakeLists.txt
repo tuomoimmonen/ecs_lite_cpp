@@ -13,6 +13,7 @@ set(PROJECT_SOURCES
     src/components/InputComponent.cpp
     src/components/SpriteComponent.cpp
     src/game/Game.cpp
+    src/components/AIComponent.cpp
 
 )
 

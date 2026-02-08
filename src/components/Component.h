@@ -4,8 +4,8 @@ struct Vec4
 {
     int x_dir = 0;
     int y_dir = 0;
-    int x_width = 0;
-    int y_width = 0;
+    int width = 0;
+    int height = 0;
 };
 
 class Entity;

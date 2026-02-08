@@ -3,6 +3,8 @@
 #include <limits>
 #include "components/TransformComponent.h"
 #include "components/SpriteComponent.h"
+#include "components/AIComponent.h"
+#include "components/InputComponent.h"
 
 Game::Game()
 {
@@ -146,10 +148,10 @@ Vec4 Game::handle_input()
             return Vec4(0, 0, 0, 0);
             break;
         }
-        case 'w': return Vec4(0, -1, m_screen_width, m_screen_width);   break;
-        case 'd': return Vec4(1, 0, m_screen_width, m_screen_width);    break;
-        case 's': return Vec4(0, 1, m_screen_width, m_screen_width);    break;
-        case 'a': return Vec4(-1, 0, m_screen_width, m_screen_width);   break;
+        case 'w': return Vec4(0, -1, m_screen_width, m_screen_height);   break;
+        case 'd': return Vec4(1, 0, m_screen_width, m_screen_height);    break;
+        case 's': return Vec4(0, 1, m_screen_width, m_screen_height);    break;
+        case 'a': return Vec4(-1, 0, m_screen_width, m_screen_height);   break;
 
         default:
         {
@@ -185,9 +187,19 @@ void Game::create_entities()
     Entity* player = new Entity();
     SpriteComponent* player_sprite = new SpriteComponent('@');
     player->add_sprite_component(player_sprite);
-    TransformComponent* player_transform = new TransformComponent();
+    TransformComponent* player_transform = new TransformComponent(m_screen_width / 2, m_screen_height / 2);
     player->add_component(player_transform);
-    //player->add_component(player_sprite);
+    InputComponent* player_input = new InputComponent();
+    player->add_component(player_input);
+    
+    Entity* enemy = new Entity();
+    SpriteComponent* enemy_sprite = new SpriteComponent('E');
+    enemy->add_sprite_component(enemy_sprite);
+    TransformComponent* enemy_transform = new TransformComponent();
+    enemy->add_component(enemy_transform);
+    AIComponent* enemy_ai_component = new AIComponent();
+    enemy->add_component(enemy_ai_component);
 
     m_entities.emplace_back(player);
+    m_entities.emplace_back(enemy);
 }
